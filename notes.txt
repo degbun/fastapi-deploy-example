@@ -1,0 +1,9 @@
+fastapi dev main.py
+
+docker build -t firstApp:v1 .
+
+docker build -t josue30/k8s-fast-api:v1 .
+
+docker login
+
+docker push josue30/k8s-fast-api:v1 

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fast-api
+  labels:
+    app: fast-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fast-api
+  template:
+    metadata:
+      labels:
+        app: fast-api
+    spec:
+      containers:
+      - name: fast-api
+        image: josue30/k8s-fast-api:v1
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "300Mi" # Mémoire minimale demandée
+            cpu: "200m"     # CPU minimale demandée (250 milliCPU)
+          limits:
+            memory: "400Mi" # Mémoire maximale autorisée
+            cpu: "500m"  # CPU maximale autorisée (500 milliCPU)
+        env:
+        - name: ENV
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: ENV   
